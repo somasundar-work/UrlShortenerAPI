@@ -1,0 +1,21 @@
+name: CSharpier Format Check
+
+on: [push, pull_request] # Runs on every push and pull request
+
+jobs:
+  csharpier-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.x" # Adjust for your project version
+
+      - name: Restore .NET Tools
+        run: dotnet tool restore
+
+      - name: Run CSharpier Check
+        run: dotnet csharpier --check .
