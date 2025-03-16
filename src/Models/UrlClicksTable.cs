@@ -22,5 +22,8 @@ namespace Models
 
         [DynamoDBProperty("US_UCT_IP")]
         public string? IPAddress { get; set; }
+
+        [DynamoDBProperty("US_UCT_DD")]
+        public DateTime? DeletionDate { get; set; }
     }
 }
