@@ -36,19 +36,6 @@ public class Startup
 
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints
-                .MapGet(
-                    "/",
-                    async context =>
-                    {
-                        await context.Response.WriteAsync("Welcome to running ASP.NET Core on AWS Lambda");
-                    }
-                )
-                .WithName("GetWeatherForecast")
-                .WithOpenApi();
-            ;
-        });
+        app.MapUrlShortenerEndPoints();
     }
 }
