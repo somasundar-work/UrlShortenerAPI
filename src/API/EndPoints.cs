@@ -16,7 +16,16 @@ namespace UrlShortener.API
                     )
                     .WithName("UrlShortener")
                     .WithOpenApi();
-                ;
+
+                endpoints.MapGet(
+                    "/api/{id}",
+                    async context =>
+                    {
+                        await context.Response.WriteAsync(
+                            $"Welcome to running ASP.NET Core on AWS Lambda. your path is `{context.Request.Path}`"
+                        );
+                    }
+                );
             });
             return app;
         }
