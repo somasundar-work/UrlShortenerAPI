@@ -1,3 +1,5 @@
+using UrlShortener.Business.Extensions;
+
 namespace UrlShortener.API;
 
 public class Startup
@@ -13,6 +15,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddAuthorization();
+        services.AddBusiness(Configuration);
         services.AddEndpointsApiExplorer();
         services.AddControllers();
         services.AddSwaggerGen();
@@ -27,8 +30,6 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
-        app.UseHttpsRedirection();
 
         app.UseHttpsRedirection();
 

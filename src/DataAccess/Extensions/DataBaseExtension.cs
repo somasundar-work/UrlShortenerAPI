@@ -9,7 +9,7 @@ namespace UrlShortener.DataAccess.Extensions;
 
 public static class DataBaseExtensions
 {
-    public static IServiceCollection AddDynamoDB(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var awsOptions = configuration.GetAWSOptions();
         services.AddDefaultAWSOptions(awsOptions);

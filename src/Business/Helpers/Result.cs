@@ -11,7 +11,7 @@ namespace UrlShortener.Business.Helpers
         [JsonPropertyOrder(2)]
         [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
-        
+
         [JsonPropertyOrder(4)]
         [JsonPropertyName("data")]
         public T? Data { get; set; }
@@ -20,13 +20,29 @@ namespace UrlShortener.Business.Helpers
         [JsonPropertyName("message")]
         public string? Message { get; set; }
 
-        public static Result<T> Success(T data, string message) => 
-            new() { IsSuccess = true, Status = "Success", Data = data, Message = message };
-        
-        public static Result<T> Failure(string message) => 
-            new() { IsSuccess = false, Status = "Failure", Message = message };
+        public static Result<T> Success(T data, string message) =>
+            new()
+            {
+                IsSuccess = true,
+                Status = "Success",
+                Data = data,
+                Message = message,
+            };
 
-        public static Result<T> Error(string message) => 
-            new() { IsSuccess = false, Status = "Error", Message = message };
+        public static Result<T> Failure(string message) =>
+            new()
+            {
+                IsSuccess = false,
+                Status = "Failure",
+                Message = message,
+            };
+
+        public static Result<T> Error(string message) =>
+            new()
+            {
+                IsSuccess = false,
+                Status = "Error",
+                Message = message,
+            };
     }
 }

@@ -25,10 +25,9 @@ namespace UrlShortener.DataAccess.Service
             return await _context.LoadAsync<T>(primaryKey);
         }
 
-        public async Task<T> CreateUrlAsync(T url)
+        public async Task CreateUrlAsync(T url)
         {
             await _context.SaveAsync(url);
-            return url;
         }
 
         public async Task<T> UpdateUrlAsync(T url)
