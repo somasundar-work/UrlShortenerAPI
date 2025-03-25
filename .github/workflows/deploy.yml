@@ -1,0 +1,54 @@
+name: Deploy Infrastructure
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Restore NuGet packages
+        run: dotnet restore src/API/API.csproj
+
+      - name: Build .NET Minimal API
+        run: |
+          cd src/API/API.csproj
+          dotnet build -c Release --no-restore
+
+      - name: Package Lambda Function
+        run: |
+          cd src/API/API.csproj
+          dotnet lambda package --configuration Release --no-restore
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Initialize Terraform
+        run: |
+          cd infra
+          terraform init
+
+      - name: Deploy Infrastructure
+        run: |
+          cd infra
+          terraform apply -auto-approve

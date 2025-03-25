@@ -1,6 +1,13 @@
 name: CSharpier Format Check
 
-on: [push, pull_request] # Runs on every push and pull request
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   csharpier-check:
@@ -12,7 +19,7 @@ jobs:
       - name: Install .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x" # Adjust for your project version
+          dotnet-version: "8.0.x"
 
       - name: Restore .NET Tools
         run: dotnet tool restore
